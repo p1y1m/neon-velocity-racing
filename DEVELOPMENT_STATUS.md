@@ -18,8 +18,10 @@ Updated: 2026-11-13
 - `npm run test:e2e` — passed: 2 Chromium journeys against `/neon-velocity-racing/`
 - Browser rendering was inspected from an actual Chromium capture; the car, highway, city, lighting, traffic, and menu rendered successfully.
 
-No target-device FPS measurement was performed, so the stated 60/30 FPS goals remain unverified. GitHub Pages has not been published from this environment.
+No target-device FPS measurement was performed, so the stated 60/30 FPS goals remain unverified. GitHub Pages was deployed and live-browser verified on 2026-11-13.
 
-## Remaining external step
+## Deployment
 
-Push to a GitHub repository, select GitHub Actions as the Pages source, and verify the deployed URL after the workflow succeeds.
+- Repository: <https://github.com/p1y1m/neon-velocity-racing>
+- Live game: <https://p1y1m.github.io/neon-velocity-racing/>
+- Source: GitHub Actions with HTTPS enforced

@@ -84,7 +84,7 @@ Instanced meshes, shared primitive geometry, bounded world coordinates, pooled t
 - The straight endless circuit prioritizes readable high-speed dodging over road curvature.
 - Audio is deliberately sparse: short filtered cues start after user interaction, while continuous engine and background noise remain disabled.
 - Performance depends on browser/GPU and must be measured on target hardware; quality defaults can be changed in Settings.
-- GitHub Pages publication still requires pushing the repository and enabling Pages.
+- The public build is deployed at [p1y1m.github.io/neon-velocity-racing](https://p1y1m.github.io/neon-velocity-racing/) through the repository's GitHub Actions workflow.
 
 ## Future directions
 
