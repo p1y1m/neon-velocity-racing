@@ -1,5 +1,7 @@
 # NEON VELOCITY — Cyberpunk Racing 3D
 
+## Author: Pedro Yanez Melendez
+
 An endless, third-person arcade racer built for the browser. Thread a futuristic hypercar through synth-city traffic, chain near misses, collect energy cores, and ignite nitro while the circuit becomes steadily more dangerous.
 
 ## Highlights
