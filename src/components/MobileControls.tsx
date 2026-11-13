@@ -1,0 +1,3 @@
+import { setInput } from '../game/core/input'
+const bind = (name: 'left'|'right'|'brake'|'nitro') => ({ onPointerDown: (e: React.PointerEvent) => { e.currentTarget.setPointerCapture(e.pointerId); setInput(name, true) }, onPointerUp: () => setInput(name, false), onPointerCancel: () => setInput(name, false) })
+export function MobileControls() { return <div className="mobile-controls"><div><button aria-label="Steer left" {...bind('left')}>‹</button><button aria-label="Steer right" {...bind('right')}>›</button></div><div><button className="brake" {...bind('brake')}>BRAKE</button><button className="nitro" {...bind('nitro')}>NITRO</button></div></div> }

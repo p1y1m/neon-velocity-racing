@@ -1,0 +1,8 @@
+import { useEffect } from 'react'
+import { useGameStore } from '../state/gameStore'
+export function Results() {
+  const run = useGameStore((s) => s.run), records = useGameStore((s) => s.records), start = useGameStore((s) => s.start), setPhase = useGameStore((s) => s.setPhase), phase = useGameStore((s) => s.phase)
+  useEffect(() => { if (phase === 'gameover') { const id = setTimeout(() => setPhase('results'), 900); return () => clearTimeout(id) } }, [phase, setPhase])
+  return <div className="modal-backdrop results-backdrop"><section className="results glass-panel"><p className="eyebrow">RUN TERMINATED // DATA RECOVERED</p><h2>{phase === 'gameover' ? 'SIGNAL LOST' : 'RACE REPORT'}</h2><div className="final-score"><span>FINAL SCORE</span><strong>{Math.floor(run.score).toLocaleString()}</strong>{run.score >= records.bestScore && <b>NEW RECORD</b>}</div><div className="stats-grid"><ResultStat value={`${(run.distance / 1000).toFixed(2)} KM`} label="DISTANCE"/><ResultStat value={`${Math.round(run.maxSpeed)} KM/H`} label="TOP SPEED"/><ResultStat value={String(run.nearMisses)} label="NEAR MISSES"/><ResultStat value={String(run.collectibles)} label="ENERGY CORES"/></div>{records.achievements.length > 0 && <div className="achievements">ACHIEVEMENTS · {records.achievements.join(' · ')}</div>}<div className="result-actions"><button className="primary-button compact" onClick={start}>RUN IT AGAIN</button><button onClick={() => setPhase('menu')}>RETURN TO GARAGE</button></div></section></div>
+}
+function ResultStat({ value, label }: { value: string; label: string }) { return <div><strong>{value}</strong><span>{label}</span></div> }
