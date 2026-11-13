@@ -13,9 +13,9 @@ Updated: 2026-11-13
 
 - `npm run lint` — passed
 - `npm run typecheck` — passed in strict mode
-- `npm run test` — passed: 12 tests across 3 files
+- `npm run test` — passed: 16 tests across 4 files
 - `npm run build` — passed with Vite 8.3.8; production JS is 344.24 kB gzip (Vite reports the expected large Three.js chunk advisory)
-- `npm run test:e2e` — passed: 2 Chromium journeys against `/neon-velocity-racing/`
+- `npm run test:e2e` — passed: 3 Chromium journeys, including landscape-phone touch emulation, against `/neon-velocity-racing/`
 - Browser rendering was inspected from an actual Chromium capture; the car, highway, city, lighting, traffic, and menu rendered successfully.
 
 No target-device FPS measurement was performed, so the stated 60/30 FPS goals remain unverified. GitHub Pages was deployed and live-browser verified on 2026-11-13.

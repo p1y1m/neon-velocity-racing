@@ -16,6 +16,17 @@ export function resetInput() {
   for (const key of Object.keys(inputState) as (keyof InputState)[]) inputState[key] = false
 }
 
+export function isMobileDrivingDevice() {
+  const coarsePointer = window.matchMedia?.('(pointer: coarse)').matches ?? false
+  const compactTouchDevice = navigator.maxTouchPoints > 0 && window.innerWidth <= 1024
+  return coarsePointer || compactTouchDevice
+}
+
+export function resolveDrivingInput(input: InputState, automaticAcceleration: boolean): InputState {
+  if (!automaticAcceleration) return input
+  return { ...input, accelerate: !input.brake }
+}
+
 export function installInput(onPause: () => void, onRestart: () => void) {
   const keydown = (event: KeyboardEvent) => {
     const mapped = KEY_MAP[event.code]

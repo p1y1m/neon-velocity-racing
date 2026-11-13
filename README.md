@@ -18,7 +18,7 @@ An endless, third-person arcade racer built for the browser. Thread a futuristic
 | Action | Keyboard | Mobile |
 |---|---|---|
 | Steer | `A`/`D` or arrows | Left/right pads |
-| Accelerate / brake | `W` / `S` | Automatic / Brake |
+| Accelerate / brake | `W` / `S` | Automatic throttle / Brake |
 | Nitro | `Shift` or `Space` | Nitro pad |
 | Pause | `Esc` or `P` | HUD pause |
 | Restart after run | `R` | Results button |

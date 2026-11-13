@@ -2,6 +2,8 @@
 
 ## Unreleased — 2026-11-13
 
+- Added automatic acceleration for coarse-pointer/touch devices, with Brake overriding throttle and landscape-phone controls.
+- Added Playwright phone emulation covering acceleration, braking, and nitro touch input.
 - Removed the continuous synthesized engine oscillator and all persistent background noise.
 - Reworked collision, collectible, nitro, and UI cues as quiet filtered one-shots.
 - Reduced the default SFX volume to 20% and migrated the legacy 80% default.

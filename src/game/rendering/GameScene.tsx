@@ -3,7 +3,7 @@ import { EffectComposer, Bloom, Noise, Vignette } from '@react-three/postprocess
 import { Suspense, useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { createSimulation, stepSimulation } from '../core/logic'
-import { inputState } from '../core/input'
+import { inputState, isMobileDrivingDevice, resolveDrivingInput } from '../core/input'
 import type { SimState } from '../core/types'
 import { useGameStore } from '../../state/gameStore'
 import { PlayerCar } from '../entities/PlayerCar'
@@ -14,12 +14,12 @@ import { synthAudio } from '../audio/audio'
 
 export default function GameScene() {
   const selectedQuality = useGameStore((s) => s.settings.quality)
-  const testMode = new URLSearchParams(window.location.search).has('test')
-  const quality = testMode ? 'low' : selectedQuality
+  const testVariant = new URLSearchParams(window.location.search).get('test')
+  const quality = testVariant ? 'low' : selectedQuality
   return (
     <div className="scene" aria-label="3D racing scene">
       <Canvas
-        frameloop={testMode ? 'demand' : 'always'}
+        frameloop={testVariant === '1' ? 'demand' : 'always'}
         shadows={quality === 'high'}
         dpr={quality === 'low' ? [0.65, 1] : quality === 'medium' ? [0.8, 1.35] : [1, 1.75]}
         camera={{ position: [0, 4.2, 11.5], fov: 62, near: 0.1, far: 460 }}
@@ -42,10 +42,11 @@ function World() {
   const nitroWasActive = useRef(false)
   const phase = useGameStore((s) => s.phase)
   const previousPhase = useRef(phase)
+  const automaticAcceleration = useRef(isMobileDrivingDevice())
   const color = useGameStore((s) => s.carColor)
   const settings = useGameStore((s) => s.settings)
-  const testMode = new URLSearchParams(window.location.search).has('test')
-  const quality = testMode ? 'low' : settings.quality
+  const testVariant = new URLSearchParams(window.location.search).get('test')
+  const quality = testVariant ? 'low' : settings.quality
   const syncRun = useGameStore((s) => s.syncRun)
   const endRun = useGameStore((s) => s.endRun)
 
@@ -64,8 +65,9 @@ function World() {
     if (useGameStore.getState().phase !== 'playing') return
     const dt = Math.min(frameDt, 0.1)
     accumulator.current += dt
+    const drivingInput = resolveDrivingInput(inputState, automaticAcceleration.current)
     while (accumulator.current >= 1 / 60) {
-      sim.current = stepSimulation(sim.current, inputState, 1 / 60)
+      sim.current = stepSimulation(sim.current, drivingInput, 1 / 60)
       accumulator.current -= 1 / 60
     }
     hudTimer.current += dt
@@ -94,7 +96,7 @@ function World() {
       <pointLight position={[9, 5, -35]} color="#ff1d9e" intensity={18} distance={42} />
       <Highway sim={sim} />
       <City sim={sim} quality={quality} />
-      <TrafficSystem sim={sim} />
+      {testVariant !== 'mobile' && <TrafficSystem sim={sim} />}
       <PlayerCar sim={sim} color={color} />
       <SpeedLines sim={sim} />
       <ChaseCamera sim={sim} shakeEnabled={settings.cameraShake} />
